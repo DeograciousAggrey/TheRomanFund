@@ -104,7 +104,7 @@ contract USDCToken {
 }
 
 /*
-    * @title RomanFund 
+    * @title TheRomanFund 
     * @dev The fund is a smart contract that allows users to stake and unstake USDCTokens.
     * @dev The fund is a smart contract that allows users to receive Roman coins as a reward for staking.
     * @dev The fund is a smart contract that allows users to redeem their Roman coins and USDCTokens.
