@@ -27,11 +27,16 @@ contract HelperConfig is Script {
         }
     }
 
-    function getSepoliaEthConfig() public view returns (NetworkConfig memory sepoliaNetworkConfig) {}
+    function getSepoliaEthConfig() public view returns (NetworkConfig memory sepoliaNetworkConfig) {
+        sepoliaNetworkConfig = NetworkConfig({deployerKey: vm.envUint("PRIVATE_KEY")});
+    }
 
-    function getPolygonMumbaiConfig() public view returns (NetworkConfig memory polygonMumbaiNetworkConfig) {}
+    function getPolygonMumbaiConfig() public view returns (NetworkConfig memory polygonMumbaiNetworkConfig) {
+        polygonMumbaiNetworkConfig = NetworkConfig({deployerKey: vm.envUint("PRIVATE_KEY")});
+    }
 
-    function getOrCreateAnvilEthConfig() public returns (NetworkConfig memory anvilNetworkConfig) {
+    function getOrCreateAnvilEthConfig() public view returns (NetworkConfig memory anvilNetworkConfig) {
         //Check to see if theres an active network config
+        anvilNetworkConfig = NetworkConfig({deployerKey: DEFAULT_ANVIL_PRIVATE_KEY});
     }
 }

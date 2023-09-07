@@ -73,7 +73,7 @@ contract RomanFundMasterChef is Ownable, ReentrancyGuard {
 
     mapping(uint256 poolNumber => mapping(address user => UserInformation)) private s_poolNumberToUserInformation;
 
-    PoolInformation[] private s_poolInformation;
+    PoolInformation[] public s_poolInformation;
 
     RomanCoin private romanCoin;
     address private s_devAddress;
@@ -88,17 +88,11 @@ contract RomanFundMasterChef is Ownable, ReentrancyGuard {
     // Constructor             //
     ////////////////////////////
 
-    constructor(
-        RomanCoin _romanCoin,
-        address _devAddress,
-        uint256 _romanCoinPerBlock,
-        uint256 _startBlock,
-        uint256 _bonusMultiplier
-    ) {
+    constructor(RomanCoin _romanCoin, address _devAddress, uint256 _romanCoinPerBlock, uint256 _bonusMultiplier) {
         romanCoin = _romanCoin;
         s_devAddress = _devAddress;
         s_romanCoinPerBlock = _romanCoinPerBlock;
-        s_startBlock = _startBlock;
+        s_startBlock = block.number;
         BONUS_MULTIPLIER = _bonusMultiplier;
 
         // staking pool
@@ -111,5 +105,23 @@ contract RomanFundMasterChef is Ownable, ReentrancyGuard {
             })
         );
         s_totalAllocation = 10000;
+    }
+
+    //////////////////////////////////////
+    // Getter functions                 //
+    ////////////////////////////////////
+
+    //PoolInformation
+    function getPoolInformation(uint256 _poolNumber)
+        external
+        view
+        returns (IERC20 lpToken, uint256 allocPoint, uint256 lastRewardBlock, uint256 accRomanCoinPerShare)
+    {
+        return (
+            s_poolInformation[_poolNumber].lpToken,
+            s_poolInformation[_poolNumber].allocPoint,
+            s_poolInformation[_poolNumber].lastRewardBlock,
+            s_poolInformation[_poolNumber].accRomanCoinPerShare
+        );
     }
 }
