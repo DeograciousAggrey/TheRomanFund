@@ -37,5 +37,20 @@ contract RomanFundMasterChefTest is StdCheats, Test {
     ///////////////////////////////
     // ConstructorTest          //
     /////////////////////////////
-    function testBlockNumber() external {}
+
+    function testPoolLength() public {
+        assertEq(romanFundMasterChef.poolLength(), 1);
+    }
+
+    function testReturnsPoolInformation() public {
+        (address lpToken, uint256 allocPoint, uint256 lastRewardBlock, uint256 accRomanCoinPerShare) =
+            romanFundMasterChef.getPoolInformation(0);
+        console.log("allocPoint: %s", allocPoint);
+        console.log("lastRewardBlock: %s", lastRewardBlock);
+        console.log("accRomanCoinPerShare: %s", accRomanCoinPerShare);
+        assertEq(lpToken, address(romanCoin));
+        assertEq(allocPoint, 10000);
+        assertEq(lastRewardBlock, 1);
+        assertEq(accRomanCoinPerShare, 0);
+    }
 }

@@ -112,16 +112,20 @@ contract RomanFundMasterChef is Ownable, ReentrancyGuard {
     ////////////////////////////////////
 
     //PoolInformation
-    function getPoolInformation(uint256 _poolNumber)
+    function poolLength() external view returns (uint256) {
+        return s_poolInformation.length;
+    }
+
+    function getPoolInformation(uint256 poolId)
         external
         view
-        returns (IERC20 lpToken, uint256 allocPoint, uint256 lastRewardBlock, uint256 accRomanCoinPerShare)
+        returns (address lpToken, uint256 allocPoint, uint256 lastRewardBlock, uint256 accRomanCoinPerShare)
     {
         return (
-            s_poolInformation[_poolNumber].lpToken,
-            s_poolInformation[_poolNumber].allocPoint,
-            s_poolInformation[_poolNumber].lastRewardBlock,
-            s_poolInformation[_poolNumber].accRomanCoinPerShare
+            address(s_poolInformation[poolId].lpToken),
+            s_poolInformation[poolId].allocPoint,
+            s_poolInformation[poolId].lastRewardBlock,
+            s_poolInformation[poolId].accRomanCoinPerShare
         );
     }
 }
